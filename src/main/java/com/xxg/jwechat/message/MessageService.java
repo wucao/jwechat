@@ -47,4 +47,16 @@ public class MessageService {
             throw new WechatException("发送微信模板消息异常: " + result);
         }
     }
+
+    /**
+     * 相对于sendTemplateMessage来说, 发送消息失败不会抛出异常
+     * @see com.xxg.jwechat.message.MessageService#sendTemplateMessage(String, String, String, Map)
+     */
+    public void sendTemplateMessageQuietly(String templateId, String url, String openId, Map<String, TemplateMessageItem> map) {
+        try {
+            sendTemplateMessage(templateId, url, openId, map);
+        } catch (Exception e) {
+
+        }
+    }
 }
