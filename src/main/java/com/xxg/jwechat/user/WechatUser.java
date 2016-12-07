@@ -10,7 +10,7 @@ public class WechatUser implements Serializable {
     /**
      * 是否关注(未关注用户获取不到其他信息)
      */
-    private boolean subscribe;
+    private Boolean subscribe;
 
     /**
      * 微信用户昵称
@@ -38,11 +38,6 @@ public class WechatUser implements Serializable {
     private String province;
 
     /**
-     * 用户的语言，简体中文为zh_CN
-     */
-    private String language;
-
-    /**
      * 用户头像地址
      */
     private String headImgUrl;
@@ -50,23 +45,19 @@ public class WechatUser implements Serializable {
     /**
      * 用户关注时间(时间戳)
      */
-    private long subscribeTime;
+    private Long subscribeTime;
 
     /**
      * 用户备注(这一项是在公众平台后台用户管理中设置)
      */
     private String remark;
 
-    public boolean getSubscribe() {
+    public Boolean getSubscribe() {
         return subscribe;
     }
 
-    public void setSubscribe(boolean subscribe) {
+    public void setSubscribe(Boolean subscribe) {
         this.subscribe = subscribe;
-    }
-
-    public boolean isSubscribe() {
-        return subscribe;
     }
 
     public String getNickname() {
@@ -109,14 +100,6 @@ public class WechatUser implements Serializable {
         this.province = province;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getHeadImgUrl() {
         return headImgUrl;
     }
@@ -125,11 +108,11 @@ public class WechatUser implements Serializable {
         this.headImgUrl = headImgUrl;
     }
 
-    public long getSubscribeTime() {
+    public Long getSubscribeTime() {
         return subscribeTime;
     }
 
-    public void setSubscribeTime(long subscribeTime) {
+    public void setSubscribeTime(Long subscribeTime) {
         this.subscribeTime = subscribeTime;
     }
 

@@ -18,7 +18,7 @@ public class UserService {
 
     /**
      * 根据openId获取关注公众号的用户信息
-     * http://mp.weixin.qq.com/wiki/1/8a5ce6257f1d3b2afb20f83e72b72ce9.html
+     * 文档: http://mp.weixin.qq.com/wiki/1/8a5ce6257f1d3b2afb20f83e72b72ce9.html
      * @param openId openId
      * @return 微信用户信息
      */
@@ -54,7 +54,6 @@ public class UserService {
             wechatUser.setCity(userInfoJson.getString("city"));
             wechatUser.setCountry(userInfoJson.getString("country"));
             wechatUser.setProvince(userInfoJson.getString("province"));
-            wechatUser.setLanguage(userInfoJson.getString("language"));
             wechatUser.setHeadImgUrl(userInfoJson.getString("headimgurl"));
             wechatUser.setSubscribeTime(userInfoJson.getLong("subscribe_time"));
             wechatUser.setRemark(userInfoJson.getString("remark"));
