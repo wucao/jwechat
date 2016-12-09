@@ -46,11 +46,11 @@ public class WechatAuthInterceptor extends HandlerInterceptorAdapter {
                 boolean getUserInfo = false;
                 AuthBaseInfo authBaseInfo = authRedirectService.getBaseInfo(code);
                 if(wechatAuthEventHandle != null) {
-                    getUserInfo = wechatAuthEventHandle.openIdHandle(authBaseInfo.getOpenId());
+                    getUserInfo = wechatAuthEventHandle.openIdHandle(request, response, authBaseInfo.getOpenId());
                 }
                 if(scope == Scope.SNSAPI_USERINFO && getUserInfo) {
                     WechatUser wechatUser = authRedirectService.getUserInfo(authBaseInfo.getOpenId(), authBaseInfo.getAccessToken());
-                    wechatAuthEventHandle.userInfoHandle(wechatUser);
+                    wechatAuthEventHandle.userInfoHandle(request, response, wechatUser);
                 }
                 request.getSession().setAttribute(Constants.OPENID_SESSION_KEY, authBaseInfo.getOpenId());
                 // 成功, 去除code参数

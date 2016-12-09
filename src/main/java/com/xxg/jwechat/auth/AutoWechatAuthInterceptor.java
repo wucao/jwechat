@@ -39,11 +39,11 @@ public class AutoWechatAuthInterceptor extends HandlerInterceptorAdapter {
             } else {
                 AuthBaseInfo authBaseInfo = authRedirectService.getBaseInfo(code);
 
-                if(!wechatAuthEventHandle.openIdHandle(authBaseInfo.getOpenId())) {
+                if(!wechatAuthEventHandle.openIdHandle(request, response, authBaseInfo.getOpenId())) {
 
                     try {
                         WechatUser wechatUser = authRedirectService.getUserInfo(authBaseInfo.getOpenId(), authBaseInfo.getAccessToken());
-                        wechatAuthEventHandle.userInfoHandle(wechatUser);
+                        wechatAuthEventHandle.userInfoHandle(request, response, wechatUser);
                     } catch (Exception e) {
                         authRedirectService.redirectToWechatAuth(request, response, Scope.SNSAPI_USERINFO);
                         return false;
@@ -51,8 +51,9 @@ public class AutoWechatAuthInterceptor extends HandlerInterceptorAdapter {
 
                 }
 
-                // 成功, 去除code参数
                 request.getSession().setAttribute(Constants.OPENID_SESSION_KEY, authBaseInfo.getOpenId());
+
+                // 成功, 去除code参数跳转
                 authRedirectService.redirectToRemoveCode(request, response);
 
                 return false;
@@ -66,7 +67,7 @@ public class AutoWechatAuthInterceptor extends HandlerInterceptorAdapter {
                 return true;
             } else {
 
-                // 成功, 去除code参数
+                // 成功, 去除code参数跳转
                 authRedirectService.redirectToRemoveCode(request, response);
                 return false;
             }
