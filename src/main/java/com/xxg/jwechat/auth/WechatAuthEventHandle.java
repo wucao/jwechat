@@ -15,12 +15,12 @@ public interface WechatAuthEventHandle {
      * @param openId
      * @return 是否需要继续snsapi_userinfo授权获取完整信息, 返回false不会继续调用userInfoHandle方法
      */
-    boolean openIdHandle(HttpServletRequest request, HttpServletResponse response, String openId);
+    boolean openIdHandle(HttpServletRequest request, HttpServletResponse response, String openId) throws Exception;
 
     /**
      * snsapi_userinfo微信授权获取到微信用户信息事件
      * @param wechatUser
      */
-    void userInfoHandle(HttpServletRequest request, HttpServletResponse response, WechatUser wechatUser);
+    void userInfoHandle(HttpServletRequest request, HttpServletResponse response, WechatUser wechatUser) throws Exception;
 
 }
