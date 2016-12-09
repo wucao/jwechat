@@ -39,7 +39,7 @@ public class AutoWechatAuthInterceptor extends HandlerInterceptorAdapter {
             } else {
                 AuthBaseInfo authBaseInfo = authRedirectService.getBaseInfo(code);
 
-                if(!wechatAuthEventHandle.openIdHandle(request, response, authBaseInfo.getOpenId())) {
+                if(wechatAuthEventHandle.openIdHandle(request, response, authBaseInfo.getOpenId())) {
 
                     try {
                         WechatUser wechatUser = authRedirectService.getUserInfo(authBaseInfo.getOpenId(), authBaseInfo.getAccessToken());
