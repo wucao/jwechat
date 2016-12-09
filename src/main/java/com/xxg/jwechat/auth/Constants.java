@@ -1,4 +1,4 @@
-package com.xxg.jwechat.Constants;
+package com.xxg.jwechat.auth;
 
 /**
  * Created by wucao on 16/12/9.

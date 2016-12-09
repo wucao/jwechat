@@ -1,6 +1,5 @@
 package com.xxg.jwechat.auth;
 
-import com.xxg.jwechat.Constants.Constants;
 import com.xxg.jwechat.user.WechatUser;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
