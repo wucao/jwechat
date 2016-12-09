@@ -40,10 +40,10 @@ public class AutoWechatAuthInterceptor extends HandlerInterceptorAdapter {
 
                 if(wechatAuthEventHandle.openIdHandle(request, response, authBaseInfo.getOpenId())) {
 
-                    try {
+                    if(authBaseInfo.getScope().equals(Scope.SNSAPI_USERINFO.getValue())) {
                         WechatUser wechatUser = authRedirectService.getUserInfo(authBaseInfo.getOpenId(), authBaseInfo.getAccessToken());
                         wechatAuthEventHandle.userInfoHandle(request, response, wechatUser);
-                    } catch (Exception e) {
+                    } else {
                         authRedirectService.redirectToWechatAuth(request, response, Scope.SNSAPI_USERINFO);
                         return false;
                     }

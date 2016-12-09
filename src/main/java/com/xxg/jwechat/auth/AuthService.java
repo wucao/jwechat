@@ -46,6 +46,7 @@ public class AuthService {
             AuthBaseInfo authBaseInfo = new AuthBaseInfo();
             authBaseInfo.setOpenId(jsonObject.getString("openid"));
             authBaseInfo.setAccessToken(jsonObject.getString("access_token"));
+            authBaseInfo.setScope(jsonObject.getString("scope"));
             return authBaseInfo;
         } else {
             throw new WechatException("获取微信用户openId异常: " + json);
