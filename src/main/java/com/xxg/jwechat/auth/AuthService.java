@@ -6,6 +6,8 @@ import com.xxg.jwechat.user.WechatUser;
 import com.xxg.jwechat.user.WechatUserSex;
 import com.xxg.jwechat.util.HttpUtil;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -14,7 +16,9 @@ import java.io.IOException;
  */
 public class AuthService {
 
-    private WechatConfig wechatConfig;
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+
+    protected WechatConfig wechatConfig;
 
     public void setWechatConfig(WechatConfig wechatConfig) {
         this.wechatConfig = wechatConfig;
@@ -27,14 +31,16 @@ public class AuthService {
      * @return base信息(包含openId)
      */
     public AuthBaseInfo getBaseInfo(String code) throws IOException, WechatException {
-        String checkCodeUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=";
-        checkCodeUrl += wechatConfig.getAppId();
-        checkCodeUrl += "&secret=";
-        checkCodeUrl += wechatConfig.getAppSecret();
-        checkCodeUrl += "&code=";
-        checkCodeUrl += code;
-        checkCodeUrl += "&grant_type=authorization_code";
-        String json = HttpUtil.get(checkCodeUrl);
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=";
+        url += wechatConfig.getAppId();
+        url += "&secret=";
+        url += wechatConfig.getAppSecret();
+        url += "&code=";
+        url += code;
+        url += "&grant_type=authorization_code";
+        logger.debug("HTTP Request getBaseInfo: " + url);
+        String json = HttpUtil.get(url);
+        logger.debug("HTTP Response getBaseInfo: " + json);
         JSONObject jsonObject = new JSONObject(json);
         if(jsonObject.has("openid")) {
             AuthBaseInfo authBaseInfo = new AuthBaseInfo();
@@ -54,15 +60,18 @@ public class AuthService {
      * @return 用户信息
      */
     public WechatUser getUserInfo(String openId, String accessToken) throws IOException, WechatException {
-        String userInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="
+        String url = "https://api.weixin.qq.com/sns/userinfo?access_token="
                 + accessToken + "&openid=" + openId + "&lang=zh_CN";
-        String json = HttpUtil.get(userInfoUrl);
+        logger.debug("HTTP Request getUserInfo: " + url);
+        String json = HttpUtil.get(url);
+        logger.debug("HTTP Response getUserInfo: " + json);
         JSONObject jsonObject = new JSONObject(json);
         if(jsonObject.has("errcode")) {
             throw new WechatException("获取授权微信用户信息异常: " + json);
         }
 
         WechatUser wechatUser = new WechatUser();
+        wechatUser.setOpenId(openId);
         wechatUser.setNickname(jsonObject.getString("nickname"));
         int sex = jsonObject.getInt("sex");
         if(sex == 0) {
@@ -80,6 +89,29 @@ public class AuthService {
         wechatUser.setHeadImgUrl(jsonObject.getString("headimgurl"));
 
         return wechatUser;
+    }
+
+    /**
+     * 根据code获取用户信息(两步合一)
+     * @param code
+     * @return
+     * @throws IOException
+     * @throws WechatException
+     */
+    public WechatUser getUserInfo(String code) throws IOException, WechatException {
+        AuthBaseInfo authBaseInfo = getBaseInfo(code);
+        return getUserInfo(authBaseInfo.getOpenId(), authBaseInfo.getAccessToken());
+    }
+
+    /**
+     * 根据code获取用户openId
+     * @param code
+     * @return
+     * @throws IOException
+     * @throws WechatException
+     */
+    public String getOpenId(String code) throws IOException, WechatException {
+        return getBaseInfo(code).getOpenId();
     }
 
 }

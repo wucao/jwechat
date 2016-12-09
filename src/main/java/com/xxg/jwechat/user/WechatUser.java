@@ -8,6 +8,11 @@ import java.io.Serializable;
 public class WechatUser implements Serializable {
 
     /**
+     * openId
+     */
+    private String openId;
+
+    /**
      * 是否关注(未关注用户获取不到其他信息)
      */
     private Boolean subscribe;
@@ -51,6 +56,14 @@ public class WechatUser implements Serializable {
      * 用户备注(这一项是在公众平台后台用户管理中设置)
      */
     private String remark;
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
 
     public Boolean getSubscribe() {
         return subscribe;

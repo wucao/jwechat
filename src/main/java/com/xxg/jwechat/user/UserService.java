@@ -35,6 +35,7 @@ public class UserService {
         }
 
         WechatUser wechatUser = new WechatUser();
+        wechatUser.setOpenId(openId);
 
         if(userInfoJson.getInt("subscribe") == 0) { // 用户没有关注公众号
             wechatUser.setSubscribe(false);
