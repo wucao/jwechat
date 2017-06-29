@@ -25,8 +25,9 @@ public class AuthService {
     }
 
     /**
-     * 根据微信授权回调的code参数获取openId和其他基础信息
-     * 文档: http://mp.weixin.qq.com/wiki/4/9ac2e7b1f1d22e9e57260f6553822520.html#.E7.AC.AC.E4.BA.8C.E6.AD.A5.EF.BC.9A.E9.80.9A.E8.BF.87code.E6.8D.A2.E5.8F.96.E7.BD.91.E9.A1.B5.E6.8E.88.E6.9D.83access_token
+     * 根据微信授权回调的code参数获取openId和其他基础信息, 可用于微信H5/原生APP微信登录等场景
+     * 公众号微信H5登录文档: http://mp.weixin.qq.com/wiki/4/9ac2e7b1f1d22e9e57260f6553822520.html#.E7.AC.AC.E4.BA.8C.E6.AD.A5.EF.BC.9A.E9.80.9A.E8.BF.87code.E6.8D.A2.E5.8F.96.E7.BD.91.E9.A1.B5.E6.8E.88.E6.9D.83access_token
+     * 原生APP微信登录文档: https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&id=open1419317851
      * @param code 微信授权回调的code参数
      * @return base信息(包含openId)
      */
@@ -55,7 +56,8 @@ public class AuthService {
 
     /**
      * 根据openId和用户授权得到的accessToken获取用户信息, 注意: 无法获取到用户是否关注微信公众以及关注时间
-     * 文档: http://mp.weixin.qq.com/wiki/4/9ac2e7b1f1d22e9e57260f6553822520.html#.E7.AC.AC.E5.9B.9B.E6.AD.A5.EF.BC.9A.E6.8B.89.E5.8F.96.E7.94.A8.E6.88.B7.E4.BF.A1.E6.81.AF.28.E9.9C.80scope.E4.B8.BA_snsapi_userinfo.29
+     * 公众号微信H5登录文档: http://mp.weixin.qq.com/wiki/4/9ac2e7b1f1d22e9e57260f6553822520.html#.E7.AC.AC.E5.9B.9B.E6.AD.A5.EF.BC.9A.E6.8B.89.E5.8F.96.E7.94.A8.E6.88.B7.E4.BF.A1.E6.81.AF.28.E9.9C.80scope.E4.B8.BA_snsapi_userinfo.29
+     * 原生APP微信登录文档: https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&id=open1419317853
      * @param openId openId
      * @param accessToken accessToken
      * @return 用户信息
